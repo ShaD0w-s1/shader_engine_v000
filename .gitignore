@@ -1,0 +1,6 @@
+.cache/
+build/
+debug/
+release/
+out/
+linux/
