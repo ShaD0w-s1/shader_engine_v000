@@ -9,86 +9,29 @@
         {
             "name": "windows",
             "hidden": true,
-            "generator": "Ninja",
-            "warnings": {
-                "dev": true,
-                "deprecated": true
-            },
+            "generator": "MinGW Makefiles",
             "cacheVariables": {
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/exports",
-                "BUILD_TESTING": "OFF"
+                "CMAKE_PREFIX_PATH": "build",
+                "CMAKE_C_COMPILER": "C:/Program Files/LLVM/bin/clang.exe",
+                "CMAKE_CXX_COMPILER": "C:/Program Files/LLVM/bin/clang++.exe"
             }
         },
         {
-            "name": "linux",
-            "hidden": true,
-            "generator": "Unix MakeFiles",
-            "warnings": {
-                "dev": true,
-                "deprecated": true
-            },
-            "cacheVariables": {
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/exports",
-                "BUILD_TESTING": "OFF"
-            }
-        },
-        {
-            "name": "windows-debug",
+            "name": "windows x64",
             "inherits": "windows",
-            "displayName": "Windows x64 (Debug)",
-            "description": "Shader Engine used Clang Ninja - Debug Configuration",
-            "binaryDir": "${sourceDir}/debug",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
-        },
-        {
-            "name": "windows-release",
-            "inherits": "windows",
-            "displayName": "Windows x64 (Release)",
-            "description": "Shader Engine used Clang Ninja - Release Configuration",
-            "binaryDir": "${sourceDir}/windows/release",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
-        },
-        {
-            "name": "linux-debug",
-            "inherits": "linux",
-            "displayName": "linux x64 (debug)",
-            "description": "Shader Engine used Clang Ninja - Debug Configuration",
-            "binaryDir": "${sourceDir}/linux/release",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
+            "displayName": "Windows x64",
+            "description": "windows X64 using MinGW Makefiles",
+            "binaryDir": "${sourceDir}/build"
         }
     ],
     "buildPresets": [
         {
-            "name": "windows-debug",
-            "configurePreset": "windows-debug",
-            "displayName": "Windows Local Compilation (Debug)",
-            "description": "NetEase MSS C wrapper for Windows - Debug Configuration",
+            "name": "windows-x64 debug",
+            "configurePreset": "windows x64",
+            "displayName": "windows-x64 debug",
+            "description": "Nothing",
             "configuration": "Debug"
-        },
-        {
-            "name": "lunxy debug",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "linux-debug"
         }
     ],
-    "testPresets": [
-        {
-            "name": "windows-debug",
-            "configurePreset": "windows-debug",
-            "output": {
-                "outputOnFailure": true
-            },
-            "execution": {
-                "noTestsAction": "error",
-                "stopOnFailure": true
-            }
-        }
-    ]
+    "testPresets": []
 }
