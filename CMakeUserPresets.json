@@ -1,9 +1,0 @@
-{
-    "version": 4,
-    "vendor": {
-        "conan": {}
-    },
-    "include": [
-        "D:\\Git\\shader_engine_v000\\build\\CMakePresets.json"
-    ]
-}

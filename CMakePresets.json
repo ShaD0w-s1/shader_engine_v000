@@ -2,36 +2,87 @@
     "version": 3,
     "cmakeMinimumRequired": {
         "major": 3,
-        "minor": 28,
+        "minor": 21,
         "patch": 0
     },
     "configurePresets": [
         {
-            "name": "windows",
+            "name": "windows-clang-x64-base",
             "hidden": true,
-            "generator": "MinGW Makefiles",
+            "generator": "Ninja",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
             "cacheVariables": {
-                "CMAKE_PREFIX_PATH": "build",
-                "CMAKE_C_COMPILER": "C:/Program Files/LLVM/bin/clang.exe",
-                "CMAKE_CXX_COMPILER": "C:/Program Files/LLVM/bin/clang++.exe"
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Windows"
+                    ]
+                }
             }
         },
         {
-            "name": "windows x64",
-            "inherits": "windows",
-            "displayName": "Windows x64",
-            "description": "windows X64 using MinGW Makefiles",
-            "binaryDir": "${sourceDir}/build"
+            "name": "windows-clang-x64-debug",
+            "displayName": "Windows x64 Clang Debug",
+            "description": "使用Clang编译器针对Windows x64平台 (Debug)",
+            "inherits": "windows-clang-x64-base",
+            "binaryDir": "${sourceDir}/build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/debug"
+            }
+        },
+        {
+            "name": "windows-clang-x64-release",
+            "displayName": "Windows x64 Clang Release",
+            "description": "使用Clang编译器针对Windows x64平台 (Release)",
+            "inherits": "windows-clang-x64-base",
+            "binaryDir": "${sourceDir}/build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/release"
+            }
         }
     ],
     "buildPresets": [
         {
-            "name": "windows-x64 debug",
-            "configurePreset": "windows x64",
-            "displayName": "windows-x64 debug",
-            "description": "Nothing",
-            "configuration": "Debug"
+            "name": "windows-clang-x64-debug-rebuild",
+            "configurePreset": "windows-clang-x64-debug",
+            "displayName": "Rebuild Windows x64 Clang Debug",
+            "description": "清理并重新构建 Windows x64 Debug 版本",
+            "targets": [
+                "rebuild",
+                "copy_compile_commands"
+            ]
+        },
+        {
+            "name": "windows-clang-x64-release-rebuild",
+            "configurePreset": "windows-clang-x64-release",
+            "displayName": "Rebuild Windows x64 Clang Release",
+            "description": "清理并重新构建 Windows x64 Release 版本",
+            "targets": [
+                "rebuild",
+                "copy_compile_commands"
+            ]
         }
     ],
-    "testPresets": []
+    "testPresets": [
+        {
+            "name": "windows-clang-x64-debug",
+            "configurePreset": "windows-clang-x64-debug",
+            "displayName": "Test Windows x64 Clang Debug",
+            "description": "使用Clang编译器测试Windows x64 Debug版本"
+        },
+        {
+            "name": "windows-clang-x64-release",
+            "configurePreset": "windows-clang-x64-release",
+            "displayName": "Test Windows x64 Clang Release",
+            "description": "使用Clang编译器测试Windows x64 Release版本"
+        }
+    ]
 }
